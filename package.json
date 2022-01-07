@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prettier": "prettier --config .prettierrc src/**/*.js --write",
+    "prettier": "prettier --config .prettierrc src/**/*.ts --write",
     "lint": "eslint src/**/*.js",
     "build": "npx tsc"
   },
