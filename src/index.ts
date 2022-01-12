@@ -2,6 +2,9 @@ import express from 'express';
 import logger from './utilities/logger';
 import { promises as fsPromises } from 'fs';
 import csv from 'csvtojson';
+import sharp from 'sharp';
+import path from 'path'
+import resize from './utilities/resize';
 
 const app = express();
 const port = 3000;
@@ -27,6 +30,21 @@ app.get('/convert', logger, (req, res) => {
       );
       fsPromises.writeFile(outputFile, JSON.stringify(newData));
     });
+});
+
+app.get('/images', logger, async (req, res) => {  
+  try{
+    // res.send(
+    //   'filename: ' + req.query.filename + '\n' +
+    //   'width: ' + req.query.width + '\n' +
+    //   'height: ' + req.query.height + '\n'
+    // );
+    //res.sendFile(path.join(__dirname,'./../assets/full/' + req.query.filename + '.jpg'));
+    res.sendFile(await resize.resize(req.query.filename as string, Number(req.query.width), Number(req.query.height)));
+  }
+  catch(e){
+    console.log(e);
+  }
 });
 
 //routes
