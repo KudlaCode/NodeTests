@@ -1,21 +1,13 @@
-// import countries from '../index';
+import supertest from 'supertest';
+import app from '../index';
 
-// it('should get basic data on the country canada', async () => {
-//   const data = await countries.getCountry('canada');
-//   expect(data).toEqual({
-//     capital: 'Ottawa',
-//     region: 'Americas',
-//     numericCode: '124'
-//   });
-// });
+const request = supertest(app);
 
-// /** Add test for getRegionCountries function here */
-// it('should get countries of NAFTA countries', async () => {
-//   const data = await countries.getRegionCountries('nafta');
-//   expect(data).toEqual(['Canada', 'Mexico', 'United States of America']);
-// });
-
-// it('should get capitals of NAFTA countries', async () => {
-//   const data = await countries.getRegionCapitals('nafta');
-//   expect(data).toEqual(['Ottawa', 'Mexico City', 'Washington, D.C.']);
-// });
+describe('Test endpoint responses', () => {
+  it('should get a successful html response', async () => {
+    const response = await request.get(
+      '/images?filename=fjord&width=300&height=350'
+    );
+    expect(response.status).toEqual(200);
+  });
+});
