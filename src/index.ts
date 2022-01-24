@@ -19,8 +19,11 @@ app.get('/images', logger, async (req, res) => {
         Number(req.query.height)
       )
     );
-  } catch (e) {
+  } catch (e : unknown) {
     console.log(e);
+    if(e instanceof Error){
+      res.send(e.message);
+    }
   }
 });
 
