@@ -10,25 +10,50 @@ const app = express();
 const port = 3000;
 
 //example: http://localhost:3000/images?filename=fjord&width=300&height=350
-app.get('/images', logger, async (req, res) => {
-  try {
-    res.sendFile(
-      await resize.resize(
-        req.query.filename as string,
-        Number(req.query.width),
-        Number(req.query.height)
-      )
-    );
-  } catch (e : unknown) {
-    console.log(e);
-    if(e instanceof Error){
-      res.send(e.message);
+app.get(
+  '/images',
+  logger,
+  async (req, res): Promise<void> => {
+    try {
+      //input checks
+      if (!req.params) {
+        res.send(
+          'No parameters for the image resizing api were provided. Please provide a valid filename, width and height. Example: http://localhost:3000/images?filename=fjord&width=300&height=350'
+        );
+        return;
+      }
+
+      if (!req.params.filename || req.params.filename === '') {
+        res.send('No parameter for filename was provided.');
+        return;
+      }
+      if (!req.params.width || req.params.width === '') {
+        res.send('No parameter for width was provided.');
+        return;
+      }
+      if (!req.params.height || req.params.height === '') {
+        res.send('No parameter for height was provided.');
+        return;
+      }
+
+      res.sendFile(
+        await resize.resize(
+          req.query.filename as string,
+          Number(req.query.width),
+          Number(req.query.height)
+        )
+      );
+    } catch (e) {
+      console.log(e);
+      if (e instanceof Error) {
+        res.send(e.message);
+      }
     }
   }
-});
+);
 
 // start the Express server
-app.listen(port, () => {
+app.listen(port, (): void => {
   console.log(`server started at http://localhost:${port}`);
 });
 

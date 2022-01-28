@@ -11,21 +11,19 @@ const resize = async (
     __dirname,
     './../../assets/full/' + filename + '.jpg'
   );
-  const thumbDir = path.join(__dirname,'./../../assets/thumbs/');
+  const thumbDir = path.join(__dirname, './../../assets/thumbs/');
   const thumbPath = path.join(
     thumbDir + filename + '_' + width + '_' + height + '.jpg'
   );
- 
+
   //only create file if it does not exist
   if (!fs.existsSync(thumbPath)) {
     console.log(
       'resizing input filename: ' + absFilename + ' to ' + width + 'x' + height
     );
     //check if directory exists´
-    if (!fs.existsSync(thumbDir)){
-      console.log(
-        'creating directory: ' + thumbDir
-      );
+    if (!fs.existsSync(thumbDir)) {
+      console.log('creating directory: ' + thumbDir);
       fs.mkdirSync(thumbDir);
     }
     await sharp(absFilename)
