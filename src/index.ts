@@ -1,9 +1,5 @@
 import express from 'express';
 import logger from './utilities/logger';
-import { promises as fsPromises } from 'fs';
-import csv from 'csvtojson';
-import sharp from 'sharp';
-import path from 'path';
 import resize from './utilities/resize';
 
 const app = express();

@@ -1,12 +1,14 @@
 import express from 'express';
+import { NextFunction } from 'express';
 
 const logger = (
   req: express.Request,
   res: express.Response,
-  next: Function
+  next: NextFunction
 ): void => {
-  let url = req.url;
+  const url = req.url;
   console.log(`${url} was visited`);
+  console.log(typeof next);
   next();
 };
 
