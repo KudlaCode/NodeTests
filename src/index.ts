@@ -9,25 +9,25 @@ const port = 3000;
 app.get(
   '/images',
   logger,
-  async (req, res): Promise<void> => {
+  async (req : express.Request, res : express.Response): Promise<void> => {
     try {
       //input checks
-      if (!req.params) {
+      if (!req.query) {
         res.send(
           'No parameters for the image resizing api were provided. Please provide a valid filename, width and height. Example: http://localhost:3000/images?filename=fjord&width=300&height=350'
         );
         return;
       }
 
-      if (!req.params.filename || req.params.filename === '') {
-        res.send('No parameter for filename was provided.');
+      if (!req.query.filename || req.query.filename === '') {
+        res.send('No parameter for filename was provided. ');
         return;
       }
-      if (!req.params.width || req.params.width === '') {
+      if (!req.query.width || req.query.width === '') {
         res.send('No parameter for width was provided.');
         return;
       }
-      if (!req.params.height || req.params.height === '') {
+      if (!req.query.height || req.query.height === '') {
         res.send('No parameter for height was provided.');
         return;
       }
