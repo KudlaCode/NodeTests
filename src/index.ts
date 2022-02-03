@@ -9,7 +9,7 @@ const port = 3000;
 app.get(
   '/images',
   logger,
-  async (req : express.Request, res : express.Response): Promise<void> => {
+  async (req: express.Request, res: express.Response): Promise<void> => {
     try {
       //input checks
       if (!req.query) {
